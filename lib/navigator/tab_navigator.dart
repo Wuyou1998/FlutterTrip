@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:xiecheng_demo/dao/home_dao.dart';
 import 'package:xiecheng_demo/page/home_page.dart';
 import 'package:xiecheng_demo/page/my_page.dart';
 import 'package:xiecheng_demo/page/search_page.dart';
@@ -17,7 +18,6 @@ class _TabNavigatorState extends State<TabNavigator> {
   final defaultColor = Colors.grey;
   final activeColor = Colors.blueAccent;
   int _currentIndex = 0;
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
