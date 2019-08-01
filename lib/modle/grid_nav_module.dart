@@ -12,7 +12,22 @@ class GridNav {
     travel =
     json['travel'] != null ? new Travel.fromJson(json['travel']) : null;
   }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    if (this.hotel != null) {
+      data['hotel'] = this.hotel.toJson();
+    }
+    if (this.flight != null) {
+      data['flight'] = this.flight.toJson();
+    }
+    if (this.travel != null) {
+      data['travel'] = this.travel.toJson();
+    }
+    return data;
+  }
 }
+
 class Hotel {
   String startColor;
   String endColor;
@@ -43,6 +58,27 @@ class Hotel {
     item4 = json['item4'] != null ? new Item4.fromJson(json['item4']) : null;
   }
 
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['startColor'] = this.startColor;
+    data['endColor'] = this.endColor;
+    if (this.mainItem != null) {
+      data['mainItem'] = this.mainItem.toJson();
+    }
+    if (this.item1 != null) {
+      data['item1'] = this.item1.toJson();
+    }
+    if (this.item2 != null) {
+      data['item2'] = this.item2.toJson();
+    }
+    if (this.item3 != null) {
+      data['item3'] = this.item3.toJson();
+    }
+    if (this.item4 != null) {
+      data['item4'] = this.item4.toJson();
+    }
+    return data;
+  }
 }
 
 class MainItem {
@@ -59,6 +95,15 @@ class MainItem {
     url = json['url'];
     statusBarColor = json['statusBarColor'];
   }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['title'] = this.title;
+    data['icon'] = this.icon;
+    data['url'] = this.url;
+    data['statusBarColor'] = this.statusBarColor;
+    return data;
+  }
 }
 
 class Item1 {
@@ -73,6 +118,14 @@ class Item1 {
     url = json['url'];
     statusBarColor = json['statusBarColor'];
   }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['title'] = this.title;
+    data['url'] = this.url;
+    data['statusBarColor'] = this.statusBarColor;
+    return data;
+  }
 }
 
 class Item2 {
@@ -84,6 +137,13 @@ class Item2 {
   Item2.fromJson(Map<String, dynamic> json) {
     title = json['title'];
     url = json['url'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['title'] = this.title;
+    data['url'] = this.url;
+    return data;
   }
 }
 
@@ -99,6 +159,14 @@ class Item3 {
     url = json['url'];
     hideAppBar = json['hideAppBar'];
   }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['title'] = this.title;
+    data['url'] = this.url;
+    data['hideAppBar'] = this.hideAppBar;
+    return data;
+  }
 }
 
 class Item4 {
@@ -112,6 +180,14 @@ class Item4 {
     title = json['title'];
     url = json['url'];
     hideAppBar = json['hideAppBar'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['title'] = this.title;
+    data['url'] = this.url;
+    data['hideAppBar'] = this.hideAppBar;
+    return data;
   }
 }
 
@@ -144,6 +220,28 @@ class Flight {
     item3 = json['item3'] != null ? new Item3.fromJson(json['item3']) : null;
     item4 = json['item4'] != null ? new Item4.fromJson(json['item4']) : null;
   }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['startColor'] = this.startColor;
+    data['endColor'] = this.endColor;
+    if (this.mainItem != null) {
+      data['mainItem'] = this.mainItem.toJson();
+    }
+    if (this.item1 != null) {
+      data['item1'] = this.item1.toJson();
+    }
+    if (this.item2 != null) {
+      data['item2'] = this.item2.toJson();
+    }
+    if (this.item3 != null) {
+      data['item3'] = this.item3.toJson();
+    }
+    if (this.item4 != null) {
+      data['item4'] = this.item4.toJson();
+    }
+    return data;
+  }
 }
 
 class Travel {
@@ -174,5 +272,27 @@ class Travel {
     item2 = json['item2'] != null ? new Item2.fromJson(json['item2']) : null;
     item3 = json['item3'] != null ? new Item3.fromJson(json['item3']) : null;
     item4 = json['item4'] != null ? new Item4.fromJson(json['item4']) : null;
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['startColor'] = this.startColor;
+    data['endColor'] = this.endColor;
+    if (this.mainItem != null) {
+      data['mainItem'] = this.mainItem.toJson();
+    }
+    if (this.item1 != null) {
+      data['item1'] = this.item1.toJson();
+    }
+    if (this.item2 != null) {
+      data['item2'] = this.item2.toJson();
+    }
+    if (this.item3 != null) {
+      data['item3'] = this.item3.toJson();
+    }
+    if (this.item4 != null) {
+      data['item4'] = this.item4.toJson();
+    }
+    return data;
   }
 }

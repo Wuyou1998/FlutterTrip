@@ -40,6 +40,31 @@ class SalesBox {
         ? new SmallCard4.fromJson(json['smallCard4'])
         : null;
   }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['icon'] = this.icon;
+    data['moreUrl'] = this.moreUrl;
+    if (this.bigCard1 != null) {
+      data['bigCard1'] = this.bigCard1.toJson();
+    }
+    if (this.bigCard2 != null) {
+      data['bigCard2'] = this.bigCard2.toJson();
+    }
+    if (this.smallCard1 != null) {
+      data['smallCard1'] = this.smallCard1.toJson();
+    }
+    if (this.smallCard2 != null) {
+      data['smallCard2'] = this.smallCard2.toJson();
+    }
+    if (this.smallCard3 != null) {
+      data['smallCard3'] = this.smallCard3.toJson();
+    }
+    if (this.smallCard4 != null) {
+      data['smallCard4'] = this.smallCard4.toJson();
+    }
+    return data;
+  }
 }
 
 class BigCard1 {
@@ -53,6 +78,14 @@ class BigCard1 {
     icon = json['icon'];
     url = json['url'];
     title = json['title'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['icon'] = this.icon;
+    data['url'] = this.url;
+    data['title'] = this.title;
+    return data;
   }
 }
 
@@ -68,6 +101,14 @@ class BigCard2 {
     url = json['url'];
     title = json['title'];
   }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['icon'] = this.icon;
+    data['url'] = this.url;
+    data['title'] = this.title;
+    return data;
+  }
 }
 
 class SmallCard1 {
@@ -81,6 +122,14 @@ class SmallCard1 {
     icon = json['icon'];
     url = json['url'];
     title = json['title'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['icon'] = this.icon;
+    data['url'] = this.url;
+    data['title'] = this.title;
+    return data;
   }
 }
 
@@ -96,6 +145,14 @@ class SmallCard2 {
     url = json['url'];
     title = json['title'];
   }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['icon'] = this.icon;
+    data['url'] = this.url;
+    data['title'] = this.title;
+    return data;
+  }
 }
 
 class SmallCard3 {
@@ -110,6 +167,14 @@ class SmallCard3 {
     url = json['url'];
     title = json['title'];
   }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['icon'] = this.icon;
+    data['url'] = this.url;
+    data['title'] = this.title;
+    return data;
+  }
 }
 
 class SmallCard4 {
@@ -123,5 +188,13 @@ class SmallCard4 {
     icon = json['icon'];
     url = json['url'];
     title = json['title'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['icon'] = this.icon;
+    data['url'] = this.url;
+    data['title'] = this.title;
+    return data;
   }
 }

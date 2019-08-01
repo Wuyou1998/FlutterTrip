@@ -50,5 +50,26 @@ class HomeModule {
         : null;
   }
 
-
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    if (this.config != null) {
+      data['config'] = this.config.toJson();
+    }
+    if (this.bannerList != null) {
+      data['bannerList'] = this.bannerList.map((v) => v.toJson()).toList();
+    }
+    if (this.localNavList != null) {
+      data['localNavList'] = this.localNavList.map((v) => v.toJson()).toList();
+    }
+    if (this.gridNav != null) {
+      data['gridNav'] = this.gridNav.toJson();
+    }
+    if (this.subNavList != null) {
+      data['subNavList'] = this.subNavList.map((v) => v.toJson()).toList();
+    }
+    if (this.salesBox != null) {
+      data['salesBox'] = this.salesBox.toJson();
+    }
+    return data;
+  }
 }
