@@ -1,9 +1,9 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
 import 'package:xiecheng_demo/dao/home_dao.dart';
 import 'package:xiecheng_demo/modle/home_module.dart';
+import 'package:xiecheng_demo/modle/local_nav_list_module.dart';
+import 'package:xiecheng_demo/widget/local_nav.dart';
 
 const APPBAR_SCROLL_OFFSET = 100;
 
@@ -21,7 +21,7 @@ class _HomePageState extends State<HomePage> {
   ];
   double _appBarAlpha = 0;
   String resultString = '';
-
+  List<LocalNavList> localNavList = [];
   _onScroll(offset) {
     double alpha = offset / APPBAR_SCROLL_OFFSET;
     if (alpha < 0)
@@ -34,26 +34,16 @@ class _HomePageState extends State<HomePage> {
   }
 
   _loadData() async {
-    HomeDao.fetch().then((result) {
+    try {
+      HomeModule homeModule = await HomeDao.fetch();
       setState(() {
-        resultString = json.encode(result);
+        localNavList = homeModule.localNavList;
       });
-    }).catchError((e) {
+    } catch (e) {
       setState(() {
         resultString = e.toString();
       });
-    });
-//    try {
-      HomeModule homeModule = await HomeDao.fetch();
-      setState(() {
-        resultString = json.encode(homeModule);
-        print(homeModule.bannerList[0].url);
-      });
-//    } catch (e) {
-//      setState(() {
-//        resultString = e.toString();
-//      });
-//    }
+    }
   }
 
   @override
@@ -65,6 +55,7 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Color(0xfff2f2f),
       body: Stack(
         children: <Widget>[
           MediaQuery.removePadding(
@@ -97,12 +88,23 @@ class _HomePageState extends State<HomePage> {
                       ),
                     ),
                   ),
-                  Container(
-                    height: 800,
-                    color: Colors.amber,
-                    child: Text(resultString),
+                  Container(//由于列表的遮盖，必须marginTop>=70
+                    margin: EdgeInsets.only(top: 70),
+                    child: Text('123'),
                   )
                 ],
+              ),
+            ),
+          ),
+          Positioned(
+            left: 5,
+            right: 5,
+            top: 220,
+            child: Card(
+              elevation: 4,
+              child: Padding(
+                padding: const EdgeInsets.fromLTRB(7, 4, 7, 4),
+                child: LocalNav(localNavList: localNavList,),
               ),
             ),
           ),
