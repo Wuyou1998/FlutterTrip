@@ -8,11 +8,11 @@ import 'local_nav_list_module.dart';
 
 class HomeModule {
   Config config;
-  List<BannerList> bannerList;
+  List<BannerListModule> bannerList;
   List<LocalNavListItem> localNavList;
   GridNav gridNav;
   List<SubNavListItem> subNavList;
-  SalesBoxModel salesBox;
+  SalesBoxModel salesBoxModel;
 
   HomeModule(
       {this.config,
@@ -20,15 +20,15 @@ class HomeModule {
       this.localNavList,
       this.gridNav,
       this.subNavList,
-      this.salesBox});
+      this.salesBoxModel});
 
   HomeModule.fromJson(Map<String, dynamic> json) {
     config =
         json['config'] != null ? new Config.fromJson(json['config']) : null;
     if (json['bannerList'] != null) {
-      bannerList = new List<BannerList>();
+      bannerList = new List<BannerListModule>();
       json['bannerList'].forEach((v) {
-        bannerList.add(new BannerList.fromJson(v));
+        bannerList.add(new BannerListModule.fromJson(v));
       });
     }
     if (json['localNavList'] != null) {
@@ -45,7 +45,7 @@ class HomeModule {
         subNavList.add(new SubNavListItem.fromJson(v));
       });
     }
-    salesBox = json['salesBox'] != null
+    salesBoxModel = json['salesBox'] != null
         ? new SalesBoxModel.fromJson(json['salesBox'])
         : null;
   }
@@ -67,8 +67,8 @@ class HomeModule {
     if (this.subNavList != null) {
       data['subNavList'] = this.subNavList.map((v) => v.toJson()).toList();
     }
-    if (this.salesBox != null) {
-      data['salesBox'] = this.salesBox.toJson();
+    if (this.salesBoxModel != null) {
+      data['salesBox'] = this.salesBoxModel.toJson();
     }
     return data;
   }

@@ -1,10 +1,10 @@
-class BannerList {
+class BannerListModule {
   String icon;
   String url;
 
-  BannerList({this.icon, this.url});
+  BannerListModule({this.icon, this.url});
 
-  BannerList.fromJson(Map<String, dynamic> json) {
+  BannerListModule.fromJson(Map<String, dynamic> json) {
     icon = json['icon'];
     url = json['url'];
   }
