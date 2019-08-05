@@ -1,12 +1,12 @@
-class SubNavList {
+class SubNavListItem {
   String icon;
   String title;
   String url;
   bool hideAppBar;
 
-  SubNavList({this.icon, this.title, this.url, this.hideAppBar});
+  SubNavListItem({this.icon, this.title, this.url, this.hideAppBar});
 
-  SubNavList.fromJson(Map<String, dynamic> json) {
+  SubNavListItem.fromJson(Map<String, dynamic> json) {
     icon = json['icon'];
     title = json['title'];
     url = json['url'];

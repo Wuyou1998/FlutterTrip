@@ -9,10 +9,10 @@ import 'local_nav_list_module.dart';
 class HomeModule {
   Config config;
   List<BannerList> bannerList;
-  List<LocalNavList> localNavList;
+  List<LocalNavListItem> localNavList;
   GridNav gridNav;
-  List<SubNavList> subNavList;
-  SalesBox salesBox;
+  List<SubNavListItem> subNavList;
+  SalesBoxModel salesBox;
 
   HomeModule(
       {this.config,
@@ -32,21 +32,21 @@ class HomeModule {
       });
     }
     if (json['localNavList'] != null) {
-      localNavList = new List<LocalNavList>();
+      localNavList = new List<LocalNavListItem>();
       json['localNavList'].forEach((v) {
-        localNavList.add(new LocalNavList.fromJson(v));
+        localNavList.add(new LocalNavListItem.fromJson(v));
       });
     }
     gridNav =
         json['gridNav'] != null ? new GridNav.fromJson(json['gridNav']) : null;
     if (json['subNavList'] != null) {
-      subNavList = new List<SubNavList>();
+      subNavList = new List<SubNavListItem>();
       json['subNavList'].forEach((v) {
-        subNavList.add(new SubNavList.fromJson(v));
+        subNavList.add(new SubNavListItem.fromJson(v));
       });
     }
     salesBox = json['salesBox'] != null
-        ? new SalesBox.fromJson(json['salesBox'])
+        ? new SalesBoxModel.fromJson(json['salesBox'])
         : null;
   }
 

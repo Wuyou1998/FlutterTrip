@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
 import 'package:xiecheng_demo/dao/home_dao.dart';
+import 'package:xiecheng_demo/modle/grid_nav_module.dart';
 import 'package:xiecheng_demo/modle/home_module.dart';
 import 'package:xiecheng_demo/modle/local_nav_list_module.dart';
+import 'package:xiecheng_demo/modle/sub_nav_list_module.dart';
+import 'package:xiecheng_demo/widget/grid_nav.dart';
 import 'package:xiecheng_demo/widget/local_nav.dart';
+import 'package:xiecheng_demo/widget/sub_nav.dart';
 
 const APPBAR_SCROLL_OFFSET = 100;
 
@@ -21,13 +25,14 @@ class _HomePageState extends State<HomePage> {
   ];
   double _appBarAlpha = 0;
   String resultString = '';
-  List<LocalNavList> localNavList = [];
+  List<LocalNavListItem> localNavList = [];
+  GridNav _gridNav;
+  List<SubNavListItem> _subNavList;
+
   _onScroll(offset) {
     double alpha = offset / APPBAR_SCROLL_OFFSET;
-    if (alpha < 0)
-      alpha = 0;
-    if (alpha > 1)
-      alpha = 1;
+    if (alpha < 0) alpha = 0;
+    if (alpha > 1) alpha = 1;
     setState(() {
       _appBarAlpha = alpha;
     });
@@ -38,11 +43,11 @@ class _HomePageState extends State<HomePage> {
       HomeModule homeModule = await HomeDao.fetch();
       setState(() {
         localNavList = homeModule.localNavList;
+        _gridNav = homeModule.gridNav;
+        _subNavList = homeModule.subNavList;
       });
     } catch (e) {
-      setState(() {
-        resultString = e.toString();
-      });
+      print(e);
     }
   }
 
@@ -84,27 +89,35 @@ class _HomePageState extends State<HomePage> {
                       },
                       pagination: SwiperPagination(
                           alignment: Alignment.bottomRight,
-                          builder: SwiperPagination.fraction
+                          builder: SwiperPagination.fraction),
+                    ),
+                  ),
+                  Card(
+                    elevation: 2,
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10)),
+                    child: Padding(
+                      padding: const EdgeInsets.fromLTRB(7, 4, 7, 4),
+                      child: LocalNav(
+                        localNavList: localNavList,
                       ),
                     ),
                   ),
-                  Container(//由于列表的遮盖，必须marginTop>=70
-                    margin: EdgeInsets.only(top: 70),
-                    child: Text('123'),
-                  )
+                  GridNavView(
+                    gridNav: _gridNav,
+                  ),
+                  Card(
+                    elevation: 2,
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10)),
+                    child: Padding(
+                      padding: const EdgeInsets.fromLTRB(7, 4, 7, 4),
+                      child: SubNav(
+                        subNavList: _subNavList,
+                      ),
+                    ),
+                  ),
                 ],
-              ),
-            ),
-          ),
-          Positioned(
-            left: 5,
-            right: 5,
-            top: 220,
-            child: Card(
-              elevation: 4,
-              child: Padding(
-                padding: const EdgeInsets.fromLTRB(7, 4, 7, 4),
-                child: LocalNav(localNavList: localNavList,),
               ),
             ),
           ),
@@ -112,9 +125,7 @@ class _HomePageState extends State<HomePage> {
             opacity: _appBarAlpha,
             child: Container(
               height: 100,
-              decoration: BoxDecoration(
-                  color: Colors.white
-              ),
+              decoration: BoxDecoration(color: Colors.white),
               child: Center(
                 child: Padding(
                   padding: EdgeInsets.only(top: 20),
@@ -124,6 +135,7 @@ class _HomePageState extends State<HomePage> {
             ),
           ),
         ],
-      ),);
+      ),
+    );
   }
 }

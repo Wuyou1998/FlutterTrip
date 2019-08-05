@@ -3,7 +3,7 @@ import 'package:xiecheng_demo/modle/local_nav_list_module.dart';
 import 'package:xiecheng_demo/widget/web_view.dart';
 
 class LocalNav extends StatelessWidget {
-  final List<LocalNavList> localNavList;
+  final List<LocalNavListItem> localNavList;
 
   const LocalNav({Key key, this.localNavList}) : super(key: key);
 
@@ -34,7 +34,7 @@ class LocalNav extends StatelessWidget {
     );
   }
 
-  Widget _item(BuildContext context, LocalNavList localNav) {
+  Widget _item(BuildContext context, LocalNavListItem localNav) {
     return GestureDetector(
       onTap: () {
         print(localNav.url);

@@ -1,14 +1,14 @@
-class LocalNavList {
+class LocalNavListItem {
   String icon;
   String title;
   String url;
   String statusBarColor;
   bool hideAppBar;
 
-  LocalNavList(
+  LocalNavListItem(
       {this.icon, this.title, this.url, this.statusBarColor, this.hideAppBar});
 
-  LocalNavList.fromJson(Map<String, dynamic> json) {
+  LocalNavListItem.fromJson(Map<String, dynamic> json) {
     icon = json['icon'];
     title = json['title'];
     url = json['url'];
