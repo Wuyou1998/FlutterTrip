@@ -29,6 +29,7 @@ class _TabNavigatorState extends State<TabNavigator> {
             _currentIndex=index;
           });
         },
+        physics: NeverScrollableScrollPhysics(),
         children: <Widget>[
           HomePage(),
           SearchPage(),

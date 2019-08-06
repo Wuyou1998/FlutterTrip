@@ -8,6 +8,7 @@ import 'package:xiecheng_demo/modle/local_nav_list_module.dart';
 import 'package:xiecheng_demo/modle/sales_box_module.dart';
 import 'package:xiecheng_demo/modle/sub_nav_list_module.dart';
 import 'package:xiecheng_demo/widget/grid_nav.dart';
+import 'package:xiecheng_demo/widget/loading_container.dart';
 import 'package:xiecheng_demo/widget/local_nav.dart';
 import 'package:xiecheng_demo/widget/sales_box.dart';
 import 'package:xiecheng_demo/widget/sub_nav.dart';
@@ -27,6 +28,7 @@ class _HomePageState extends State<HomePage> {
   List<SubNavListItem> _subNavList = [];
   GridNav _gridNav;
   SalesBoxModel _salesBoxModel;
+  bool _isLoading = true;
 
   _onScroll(offset) {
     double alpha = offset / APPBAR_SCROLL_OFFSET;
@@ -37,7 +39,7 @@ class _HomePageState extends State<HomePage> {
     });
   }
 
-  _loadData() async {
+  Future<Null> _handleRefesh() async {
     try {
       HomeModule homeModule = await HomeDao.fetch();
       setState(() {
@@ -46,53 +48,176 @@ class _HomePageState extends State<HomePage> {
         _subNavList = homeModule.subNavList;
         _gridNav = homeModule.gridNav;
         _salesBoxModel = homeModule.salesBoxModel;
+        _isLoading = false;
       });
     } catch (e) {
       print(e);
+      setState(() {
+        _isLoading = false;
+      });
     }
+    return null;
   }
 
   @override
   void initState() {
     super.initState();
-    _loadData();
+    _handleRefesh();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Color(0xfff2f2f),
-      body: Stack(
-        children: <Widget>[
-          MediaQuery.removePadding(
-            context: context,
-            removeTop: true,
-            child: NotificationListener(
-              onNotification: (scrollNotification) {
-                if (scrollNotification is ScrollUpdateNotification &&
-                    scrollNotification.depth == 0) {
-                  //列表滚动时
-                  _onScroll(scrollNotification.metrics.pixels);
-                }
-              },
-              child: ListView(
-                children: <Widget>[
-                  _Swiper,
-                  _LocalList,
-                  _GridList,
-                  _SubList,
-                  _SalesBox,
-                ],
+      body: LoadingContainer(
+          isLoading: _isLoading,
+          child: Stack(
+            children: <Widget>[
+              MediaQuery.removePadding(
+                context: context,
+                removeTop: true,
+                child: RefreshIndicator(
+                  onRefresh: _handleRefesh,
+                  child: NotificationListener(
+                    onNotification: (scrollNotification) {
+                      if (scrollNotification is ScrollUpdateNotification &&
+                          scrollNotification.depth == 0) {
+                        //列表滚动时
+                        _onScroll(scrollNotification.metrics.pixels);
+                      }
+                    },
+                    child: ListView(
+                      children: <Widget>[
+                        BannerWidget(bannerList: _bannerList),
+                        LocalListWidget(localNavList: _localNavList),
+                        GridListWidget(gridNav: _gridNav),
+                        SubListWidget(subNavList: _subNavList),
+                        SalesBoxWidget(salesBoxModel: _salesBoxModel),
+                      ],
+                    ),
+                  ),
+                ),
               ),
-            ),
-          ),
-          _AppBar,
-        ],
+              Opacity(
+                opacity: _appBarAlpha,
+                child: Container(
+                  height: 100,
+                  decoration: BoxDecoration(color: Colors.white),
+                  child: Center(
+                    child: Padding(
+                      padding: EdgeInsets.only(top: 20),
+                      child: Text('首页'),
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          )),
+    );
+  }
+}
+
+class SalesBoxWidget extends StatelessWidget {
+  const SalesBoxWidget({
+    Key key,
+    @required SalesBoxModel salesBoxModel,
+  })  : _salesBoxModel = salesBoxModel,
+        super(key: key);
+
+  final SalesBoxModel _salesBoxModel;
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      elevation: 2,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+      child: Padding(
+        padding: const EdgeInsets.fromLTRB(7, 4, 7, 4),
+        child: SalesBox(
+          salesBoxModel: _salesBoxModel,
+        ),
       ),
     );
   }
+}
 
-  Widget get _Swiper {
+class SubListWidget extends StatelessWidget {
+  const SubListWidget({
+    Key key,
+    @required List<SubNavListItem> subNavList,
+  })  : _subNavList = subNavList,
+        super(key: key);
+
+  final List<SubNavListItem> _subNavList;
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      elevation: 2,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+      child: Padding(
+        padding: const EdgeInsets.fromLTRB(7, 4, 7, 4),
+        child: SubNav(
+          subNavList: _subNavList,
+        ),
+      ),
+    );
+  }
+}
+
+class GridListWidget extends StatelessWidget {
+  const GridListWidget({
+    Key key,
+    @required GridNav gridNav,
+  })  : _gridNav = gridNav,
+        super(key: key);
+
+  final GridNav _gridNav;
+
+  @override
+  Widget build(BuildContext context) {
+    return GridNavView(
+      gridNav: _gridNav,
+    );
+  }
+}
+
+class LocalListWidget extends StatelessWidget {
+  const LocalListWidget({
+    Key key,
+    @required List<LocalNavListItem> localNavList,
+  })  : _localNavList = localNavList,
+        super(key: key);
+
+  final List<LocalNavListItem> _localNavList;
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      elevation: 2,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+      child: Padding(
+        padding: const EdgeInsets.fromLTRB(7, 4, 7, 4),
+        child: LocalNav(
+          localNavList: _localNavList,
+        ),
+      ),
+    );
+  }
+}
+
+class BannerWidget extends StatelessWidget {
+  final List<BannerListModule> _bannerList;
+
+  BannerWidget({
+    Key key,
+    @required List<BannerListModule> bannerList,
+  })  : _bannerList = bannerList,
+        super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    print('banner oncreate');
     return Container(
       height: 240,
       child: Swiper(
@@ -116,68 +241,12 @@ class _HomePageState extends State<HomePage> {
         },
         pagination: SwiperPagination(
             alignment: Alignment.bottomRight,
-            builder: SwiperPagination.fraction),
-      ),
-    );
-  }
-
-  Widget get _LocalList {
-    return Card(
-      elevation: 2,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-      child: Padding(
-        padding: const EdgeInsets.fromLTRB(7, 4, 7, 4),
-        child: LocalNav(
-          localNavList: _localNavList,
-        ),
-      ),
-    );
-  }
-
-  Widget get _GridList {
-    return GridNavView(
-      gridNav: _gridNav,
-    );
-  }
-
-  Widget get _SubList {
-    return Card(
-      elevation: 2,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-      child: Padding(
-        padding: const EdgeInsets.fromLTRB(7, 4, 7, 4),
-        child: SubNav(
-          subNavList: _subNavList,
-        ),
-      ),
-    );
-  }
-
-  Widget get _SalesBox {
-    return Card(
-      elevation: 2,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-      child: Padding(
-        padding: const EdgeInsets.fromLTRB(7, 4, 7, 4),
-        child: SalesBox(
-          salesBoxModel: _salesBoxModel,
-        ),
-      ),
-    );
-  }
-
-  Widget get _AppBar {
-    return Opacity(
-      opacity: _appBarAlpha,
-      child: Container(
-        height: 100,
-        decoration: BoxDecoration(color: Colors.white),
-        child: Center(
-          child: Padding(
-            padding: EdgeInsets.only(top: 20),
-            child: Text('首页'),
-          ),
-        ),
+            builder: DotSwiperPaginationBuilder(
+              size: 5,
+              activeSize: 8,
+              color: Colors.white,
+              activeColor: Colors.amberAccent,
+            )),
       ),
     );
   }
