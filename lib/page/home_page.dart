@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
 import 'package:xiecheng_demo/dao/home_dao.dart';
@@ -11,10 +12,12 @@ import 'package:xiecheng_demo/widget/grid_nav.dart';
 import 'package:xiecheng_demo/widget/loading_container.dart';
 import 'package:xiecheng_demo/widget/local_nav.dart';
 import 'package:xiecheng_demo/widget/sales_box.dart';
+import 'package:xiecheng_demo/widget/search_bar.dart';
 import 'package:xiecheng_demo/widget/sub_nav.dart';
 import 'package:xiecheng_demo/widget/web_view.dart';
 
 const APPBAR_SCROLL_OFFSET = 100;
+const SEARCH_BAR_DEFAULT_TEXT = '网红打卡地 景点 酒店 美食';
 
 class HomePage extends StatefulWidget {
   @override
@@ -85,6 +88,7 @@ class _HomePageState extends State<HomePage> {
                         //列表滚动时
                         _onScroll(scrollNotification.metrics.pixels);
                       }
+                      return true;
                     },
                     child: ListView(
                       children: <Widget>[
@@ -93,26 +97,85 @@ class _HomePageState extends State<HomePage> {
                         GridListWidget(gridNav: _gridNav),
                         SubListWidget(subNavList: _subNavList),
                         SalesBoxWidget(salesBoxModel: _salesBoxModel),
+                        AuthorSignWidget(),
                       ],
                     ),
                   ),
                 ),
               ),
-              Opacity(
-                opacity: _appBarAlpha,
-                child: Container(
-                  height: 100,
-                  decoration: BoxDecoration(color: Colors.white),
-                  child: Center(
-                    child: Padding(
-                      padding: EdgeInsets.only(top: 20),
-                      child: Text('首页'),
-                    ),
-                  ),
-                ),
-              ),
+              AppBarWidget(appBarAlpha: _appBarAlpha),
             ],
           )),
+    );
+  }
+}
+
+class AppBarWidget extends StatelessWidget {
+  const AppBarWidget({
+    Key key,
+    @required double appBarAlpha,
+  })  : _appBarAlpha = appBarAlpha,
+        super(key: key);
+
+  final double _appBarAlpha;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: <Widget>[
+        Container(
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+                colors: [Color(0x66000000), Colors.transparent],
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter),
+          ),
+          child: Container(
+            padding: EdgeInsets.fromLTRB(0, 20, 0, 0),
+            height: 80,
+            decoration: BoxDecoration(
+              color:
+                  Color.fromARGB((_appBarAlpha * 255).toInt(), 255, 255, 255),
+            ),
+            child: SearchBar(
+              searchBarType: _appBarAlpha > 0.2
+                  ? SearchBarType.homeLight
+                  : SearchBarType.home,
+              inputBoxClick: _jumpToSearch,
+              speakClick: _jumpToSpeak,
+              defaultText: SEARCH_BAR_DEFAULT_TEXT,
+              leftButtonOnClick: () {},
+            ),
+          ),
+        ),
+        Container(
+          height: _appBarAlpha > 0.2 ? 2 : 0,
+          decoration: BoxDecoration(
+              boxShadow: [BoxShadow(color: Colors.black12, blurRadius: 0.5)]),
+        )
+      ],
+    );
+  }
+
+  void _jumpToSearch() {}
+
+  void _jumpToSpeak() {}
+}
+
+class AuthorSignWidget extends StatelessWidget {
+  const AuthorSignWidget({
+    Key key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: EdgeInsets.only(top: 5, bottom: 7),
+      child: Text(
+        '本App由吴优完成于2019-08-10',
+        textAlign: TextAlign.center,
+        style: TextStyle(color: Colors.black38),
+      ),
     );
   }
 }
@@ -217,7 +280,7 @@ class BannerWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print('banner oncreate');
+    //print('banner on create');
     return Container(
       height: 240,
       child: Swiper(

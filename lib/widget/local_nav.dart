@@ -9,7 +9,7 @@ class LocalNav extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print('列表长度:${localNavList.length}');
+    //print('列表长度:${localNavList.length}');
     return Container(
       height: 80,
       decoration: BoxDecoration(
