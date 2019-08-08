@@ -33,7 +33,7 @@ class SearchBar extends StatefulWidget {
 }
 
 class _SearchBarState extends State<SearchBar> {
-  bool showClear = false;
+  bool _showClear = false;
   final TextEditingController _controller = TextEditingController();
 
   @override
@@ -183,7 +183,7 @@ class _SearchBarState extends State<SearchBar> {
                     ),
                     widget.inputBoxClick),
           ),
-          !showClear
+          !_showClear
               ? _wrapTap(
                   Icon(
                     Icons.mic,
@@ -212,11 +212,11 @@ class _SearchBarState extends State<SearchBar> {
   void _onChanged(String text) {
     if (text.length > 0) {
       setState(() {
-        showClear = true;
+        _showClear = true;
       });
     } else {
       setState(() {
-        showClear = false;
+        _showClear = false;
       });
     }
     if (widget.onChanged != null) {

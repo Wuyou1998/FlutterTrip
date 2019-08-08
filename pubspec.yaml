@@ -23,7 +23,7 @@ dependencies:
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^0.1.2
-  flutter_swiper : ^1.1.6
+  flutter_swiper: ^1.1.6
   http: ^0.12.0+2
   shared_preferences: ^0.5.3+4
   flutter_webview_plugin: ^0.3.5
@@ -43,6 +43,25 @@ flutter:
   # included with your application, so that you can use the icons in
   # the material Icons class.
   uses-material-design: true
+  assets:
+    - images/type_channelplane.png
+    - images/type_district.png
+    - images/type_food.png
+    - images/type_hotel.png
+    - images/type_huodong.png
+    - images/type_shop.png
+    - images/type_sight.png
+    - images/type_ticket.png
+    - images/type_travelgroup.png
+    - images/type_channelgroup.png
+    - images/type_channelgs.png
+    - images/type_channeltrain.png
+    - images/type_cruise.png
+    - images/type_plane.png
+    - images/type_group.png
+    - images/type_gs.png
+    - images/type_train.png
+
 
   # To add assets to your application, add an assets section, like this:
   # assets:

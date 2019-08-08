@@ -8,6 +8,7 @@ import 'package:xiecheng_demo/modle/home_module.dart';
 import 'package:xiecheng_demo/modle/local_nav_list_module.dart';
 import 'package:xiecheng_demo/modle/sales_box_module.dart';
 import 'package:xiecheng_demo/modle/sub_nav_list_module.dart';
+import 'package:xiecheng_demo/page/search_page.dart';
 import 'package:xiecheng_demo/widget/grid_nav.dart';
 import 'package:xiecheng_demo/widget/loading_container.dart';
 import 'package:xiecheng_demo/widget/local_nav.dart';
@@ -131,7 +132,7 @@ class AppBarWidget extends StatelessWidget {
                 end: Alignment.bottomCenter),
           ),
           child: Container(
-            padding: EdgeInsets.fromLTRB(0, 20, 0, 0),
+            padding: EdgeInsets.fromLTRB(0, 30, 0, 0),
             height: 80,
             decoration: BoxDecoration(
               color:
@@ -141,7 +142,16 @@ class AppBarWidget extends StatelessWidget {
               searchBarType: _appBarAlpha > 0.2
                   ? SearchBarType.homeLight
                   : SearchBarType.home,
-              inputBoxClick: _jumpToSearch,
+              inputBoxClick: () {
+                //jump to search
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => SearchPage(
+                              hideLeft: false,
+                              hint: SEARCH_BAR_DEFAULT_TEXT,
+                            )));
+              },
               speakClick: _jumpToSpeak,
               defaultText: SEARCH_BAR_DEFAULT_TEXT,
               leftButtonOnClick: () {},
@@ -156,8 +166,6 @@ class AppBarWidget extends StatelessWidget {
       ],
     );
   }
-
-  void _jumpToSearch() {}
 
   void _jumpToSpeak() {}
 }
