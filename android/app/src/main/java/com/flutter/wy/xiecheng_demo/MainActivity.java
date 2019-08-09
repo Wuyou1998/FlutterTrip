@@ -1,4 +1,4 @@
-package com.flutter.wy.xiecheng_demo;
+ package com.flutter.wy.xiecheng_demo;
 
 import android.os.Bundle;
 import io.flutter.app.FlutterActivity;
