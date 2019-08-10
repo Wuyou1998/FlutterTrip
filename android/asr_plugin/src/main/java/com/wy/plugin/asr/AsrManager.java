@@ -30,6 +30,12 @@ public class AsrManager {
 
     private static final String TAG = "AsrManager";
 
+    private static AsrManager asrManager;
+    public static AsrManager getInstance(Context context, OnAsrListener listener){
+        if (asrManager==null)
+            asrManager=new AsrManager(context,listener);
+        return asrManager;
+    }
 
     /**
      * 初始化 提供 EventManagerFactory需要的Context和RecogEventAdapter
@@ -37,7 +43,7 @@ public class AsrManager {
      * @param context
      * @param listener 识别状态和结果回调
      */
-    public AsrManager(Context context, OnAsrListener listener) {
+    private AsrManager(Context context, OnAsrListener listener) {
         if (isInited) {
             Log.e(TAG, "还未调用release()，请勿新建一个新类");
             throw new RuntimeException("还未调用release()，请勿新建一个新类");

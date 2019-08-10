@@ -12,10 +12,10 @@ public class MainActivity extends FlutterActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         GeneratedPluginRegistrant.registerWith(this);
-        registerSelfPiugin();
+        registerSelfPlugin();
     }
 
-    private void registerSelfPiugin() {
+    private void registerSelfPlugin() {
         AsrPlugin.registerWith(registrarFor("com.wy.plugin.asr.AsrPlugin"));
     }
 }

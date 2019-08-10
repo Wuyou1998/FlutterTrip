@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:xiecheng_demo/dao/search_dao.dart';
 import 'package:xiecheng_demo/modle/search_modle.dart';
 import 'package:xiecheng_demo/widget/search_bar.dart';
+import 'package:xiecheng_demo/widget/speak_page.dart';
 import 'package:xiecheng_demo/widget/web_view.dart';
 
 const TYPES = [
@@ -42,7 +43,22 @@ class SearchPage extends StatefulWidget {
 
 class _SearchPageState extends State<SearchPage> {
   SearchModel searchModel;
-  String keyWord;
+
+  /*
+   * widget.keyWord是传过来的初始关键字，当它不为空时，肯定要触发一下搜索
+   * keyWordText是TestFiled里面的内容发生变化时，用于记录当前输入框里的内容
+   * 由于http是异步的，当get请求结果返回时，当前结果可能会与输入框里的搜索条件不一致（比如快速逐个删除字符）
+   * 所以keyWordText的作用就是过滤，当且仅当keyWordText和搜索keyWord一致时才会展示搜索结果
+   */
+  String keyWordText;
+
+  @override
+  void initState() {
+    if (widget.keyWord != null) {
+      _onTextChanged(widget.keyWord);
+    }
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -129,6 +145,11 @@ class _SearchPageState extends State<SearchPage> {
               hideLeft: widget.hideLeft,
               defaultText: widget.keyWord,
               hint: widget.hint,
+              speakClick: () {
+                //jump to speak
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => SpeakPage()));
+              },
               leftButtonOnClick: () {
                 Navigator.pop(context);
               },
@@ -141,8 +162,8 @@ class _SearchPageState extends State<SearchPage> {
   }
 
   _onTextChanged(String text) {
-    keyWord = text;
-    print(keyWord);
+    keyWordText = text;
+    print(keyWordText);
     if (text.length == 0) {
       setState(() {
         searchModel = null;
@@ -151,7 +172,7 @@ class _SearchPageState extends State<SearchPage> {
     }
     String url = widget.searchUrl + text;
     SearchDao.fetch(url, text).then((SearchModel model) {
-      if (model.keyword == keyWord) {
+      if (model.keyword == keyWordText) {
         setState(() {
           searchModel = model;
         });

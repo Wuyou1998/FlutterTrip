@@ -163,8 +163,8 @@ public class AsrPlugin implements MethodChannel.MethodCallHandler {
 
     private AsrManager getAsrManager() {
         if (asrManager == null) {
-            if (activity != null && activity.isFinishing()) {
-                asrManager = new AsrManager(activity, onAsrListener);
+            if (activity != null && !activity.isFinishing()) {
+                asrManager = AsrManager.getInstance(activity, onAsrListener);
             }
         }
         return asrManager;

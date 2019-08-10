@@ -14,6 +14,7 @@ import 'package:xiecheng_demo/widget/loading_container.dart';
 import 'package:xiecheng_demo/widget/local_nav.dart';
 import 'package:xiecheng_demo/widget/sales_box.dart';
 import 'package:xiecheng_demo/widget/search_bar.dart';
+import 'package:xiecheng_demo/widget/speak_page.dart';
 import 'package:xiecheng_demo/widget/sub_nav.dart';
 import 'package:xiecheng_demo/widget/web_view.dart';
 
@@ -152,7 +153,11 @@ class AppBarWidget extends StatelessWidget {
                               hint: SEARCH_BAR_DEFAULT_TEXT,
                             )));
               },
-              speakClick: _jumpToSpeak,
+              speakClick: () {
+                //jump to speak
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => SpeakPage()));
+              },
               defaultText: SEARCH_BAR_DEFAULT_TEXT,
               leftButtonOnClick: () {},
             ),
@@ -166,8 +171,6 @@ class AppBarWidget extends StatelessWidget {
       ],
     );
   }
-
-  void _jumpToSpeak() {}
 }
 
 class AuthorSignWidget extends StatelessWidget {
