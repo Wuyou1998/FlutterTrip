@@ -9,14 +9,14 @@ import 'package:xiecheng_demo/modle/local_nav_list_module.dart';
 import 'package:xiecheng_demo/modle/sales_box_module.dart';
 import 'package:xiecheng_demo/modle/sub_nav_list_module.dart';
 import 'package:xiecheng_demo/page/search_page.dart';
+import 'package:xiecheng_demo/page/speak_page.dart';
 import 'package:xiecheng_demo/widget/grid_nav.dart';
 import 'package:xiecheng_demo/widget/loading_container.dart';
 import 'package:xiecheng_demo/widget/local_nav.dart';
 import 'package:xiecheng_demo/widget/sales_box.dart';
 import 'package:xiecheng_demo/widget/search_bar.dart';
-import 'package:xiecheng_demo/page/speak_page.dart';
 import 'package:xiecheng_demo/widget/sub_nav.dart';
-import 'package:xiecheng_demo/widget/web_view.dart';
+import 'package:xiecheng_demo/widget/web_view_widget.dart';
 
 const APPBAR_SCROLL_OFFSET = 100;
 const SEARCH_BAR_DEFAULT_TEXT = '网红打卡地 景点 酒店 美食';
@@ -82,26 +82,26 @@ class _HomePageState extends State<HomePage> {
                 MediaQuery.removePadding(
                   context: context,
                   removeTop: true,
-                  child:NotificationListener(
-                      onNotification: (scrollNotification) {
-                        if (scrollNotification is ScrollUpdateNotification &&
-                            scrollNotification.depth == 0) {
-                          //列表滚动时
-                          _onScroll(scrollNotification.metrics.pixels);
-                        }
-                        return false;
-                      },
-                      child: ListView(
-                        children: <Widget>[
-                          BannerWidget(bannerList: _bannerList),
-                          LocalListWidget(localNavList: _localNavList),
-                          GridListWidget(gridNav: _gridNav),
-                          SubListWidget(subNavList: _subNavList),
-                          SalesBoxWidget(salesBoxModel: _salesBoxModel),
-                          AuthorSignWidget(),
-                        ],
-                      ),
+                  child: NotificationListener(
+                    onNotification: (scrollNotification) {
+                      if (scrollNotification is ScrollUpdateNotification &&
+                          scrollNotification.depth == 0) {
+                        //列表滚动时
+                        _onScroll(scrollNotification.metrics.pixels);
+                      }
+                      return false;
+                    },
+                    child: ListView(
+                      children: <Widget>[
+                        BannerWidget(bannerList: _bannerList),
+                        LocalListWidget(localNavList: _localNavList),
+                        GridListWidget(gridNav: _gridNav),
+                        SubListWidget(subNavList: _subNavList),
+                        SalesBoxWidget(salesBoxModel: _salesBoxModel),
+                        AuthorSignWidget(),
+                      ],
                     ),
+                  ),
                 ),
                 AppBarWidget(appBarAlpha: _appBarAlpha),
               ],
@@ -302,7 +302,7 @@ class BannerWidget extends StatelessWidget {
               Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => WebView(
+                      builder: (context) => WebViewWidget(
                             url: _bannerList[index].url,
                           )));
             },

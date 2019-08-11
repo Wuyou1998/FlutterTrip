@@ -1,24 +1,27 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
-import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
+import 'package:toast/toast.dart';
+import 'package:webview_flutter/webview_flutter.dart';
 
 const CATCH_URLS = ['m.ctrip.com/', 'm.ctrip.com/html5/', 'm.ctrip.com/html5'];
 
-class WebView extends StatefulWidget {
+class WebViewWidget extends StatefulWidget {
   String url;
   final String statusBarColor;
   final String title;
   final bool hideAppBar;
   final bool backForbid;
 
-  WebView(
+  //默认阻止回到h5主页，但是如果是 我的 页面，就允许退回
+  final bool isMyPage;
+
+  WebViewWidget(
       {Key key,
       this.url,
       this.statusBarColor,
       this.title,
       this.hideAppBar,
-      this.backForbid=false})
+      this.backForbid = false,
+      this.isMyPage = false})
       : super(key: key) {
     if (url != null && url.contains('ctrip.com')) {
       //fix 携程H5 http://无法打开问题
@@ -30,41 +33,15 @@ class WebView extends StatefulWidget {
   _WebViewState createState() => _WebViewState();
 }
 
-class _WebViewState extends State<WebView> {
-  final webViewReference = FlutterWebviewPlugin();
-  StreamSubscription<String> _onUrlChanged;
-  StreamSubscription<WebViewStateChanged> _onStateChanged;
-  StreamSubscription<WebViewHttpError> _onHttpError;
-  bool exiting = false;
-
+class _WebViewState extends State<WebViewWidget> {
   @override
   void initState() {
     super.initState();
-    webViewReference.close();
-    _onUrlChanged = webViewReference.onUrlChanged.listen((String url) {});
-    _onStateChanged =
-        webViewReference.onStateChanged.listen((WebViewStateChanged state) {
-      switch (state.type) {
-        case WebViewState.startLoad:
-          if (_isToMain(state.url) && !exiting) {
-            if (widget.backForbid) {
-              webViewReference.launch(widget.url);
-            } else {
-              Navigator.pop(context);
-              exiting = true;
-            }
-          }
-          break;
-        default:
-          break;
-      }
-    });
-    _onHttpError =
-        webViewReference.onHttpError.listen((WebViewHttpError error) {});
   }
 
   _isToMain(String url) {
     bool containThisUrl = false;
+    if (widget.isMyPage) return containThisUrl;
     for (final value in CATCH_URLS) {
       if (url?.endsWith(value) ?? false) containThisUrl = true;
     }
@@ -73,10 +50,6 @@ class _WebViewState extends State<WebView> {
 
   @override
   void dispose() {
-    _onUrlChanged.cancel();
-    _onStateChanged.cancel();
-    _onHttpError.cancel();
-    webViewReference.dispose();
     super.dispose();
   }
 
@@ -94,20 +67,20 @@ class _WebViewState extends State<WebView> {
           _appBar(
               Color(int.parse('0xff' + statusBarColorStr)), backButtonColor),
           Expanded(
-            child: WebviewScaffold(
-              url: widget.url,
-              withZoom: true,
-              withLocalStorage: true,
-              hidden: true,
-              //TODO 加载样式要搞得炫酷一点
-              initialChild: Container(
-                color: Colors.white,
-                child: Center(
-                  child: Text('加载中...'),
-                ),
-              ),
+            child: WebView(
+              initialUrl: widget.url,
+              javascriptMode: JavascriptMode.unrestricted,
+              navigationDelegate: (NavigationRequest request) {
+                if (_isToMain(request.url)) {
+                  Navigator.pop(context);
+                  Toast.show('除了我的页面的webView，其他的返回h5页面的请求均会关闭当前页面', context,
+                      duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
+                  return NavigationDecision.prevent;
+                }
+                return NavigationDecision.navigate;
+              },
             ),
-          )
+          ),
         ],
       ),
     );
@@ -117,7 +90,7 @@ class _WebViewState extends State<WebView> {
     if (widget.hideAppBar ?? false) {
       return Container(
         color: backGroundColor,
-        height: 23,
+        height: 28,
       );
     }
     return Container(
@@ -128,7 +101,7 @@ class _WebViewState extends State<WebView> {
         child: Stack(
           children: <Widget>[
             GestureDetector(
-              onTap: (){
+              onTap: () {
                 Navigator.pop(context);
               },
               child: Container(

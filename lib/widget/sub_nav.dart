@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:xiecheng_demo/modle/sub_nav_list_module.dart';
-import 'package:xiecheng_demo/widget/web_view.dart';
+import 'package:xiecheng_demo/widget/web_view_widget.dart';
 
 class SubNav extends StatelessWidget {
   final List<SubNavListItem> subNavList;
@@ -55,7 +55,7 @@ class SubNav extends StatelessWidget {
           Navigator.push(
               context,
               MaterialPageRoute(
-                  builder: (context) => WebView(
+                  builder: (context) => WebViewWidget(
                         url: subNavListItem.url,
                         title: subNavListItem.title,
                         hideAppBar: subNavListItem.hideAppBar,

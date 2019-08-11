@@ -4,7 +4,7 @@ import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:xiecheng_demo/dao/travel_dao.dart';
 import 'package:xiecheng_demo/modle/travel_model.dart';
 import 'package:xiecheng_demo/widget/loading_container.dart';
-import 'package:xiecheng_demo/widget/web_view.dart';
+import 'package:xiecheng_demo/widget/web_view_widget.dart';
 
 const PAGE_SIZE = 10;
 const PAGE_URL =
@@ -129,7 +129,7 @@ class TravelItemView extends StatelessWidget {
           Navigator.push(
               context,
               MaterialPageRoute(
-                  builder: (context) => WebView(
+                  builder: (context) => WebViewWidget(
                         url: item.article.urls[0].h5Url,
                         title: '旅拍详情',
                       )));

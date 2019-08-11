@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:xiecheng_demo/modle/local_nav_list_module.dart';
 import 'package:xiecheng_demo/modle/sales_box_module.dart';
-import 'package:xiecheng_demo/widget/web_view.dart';
+import 'package:xiecheng_demo/widget/web_view_widget.dart';
 
 //底部卡片入口
 class SalesBox extends StatelessWidget {
@@ -63,7 +63,7 @@ class SalesBox extends StatelessWidget {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => WebView(
+                            builder: (context) => WebViewWidget(
                                   url: salesBoxModel.moreUrl,
                                   title: '更多活动',
                                 )));
@@ -113,7 +113,7 @@ class SalesBox extends StatelessWidget {
         Navigator.push(
             context,
             MaterialPageRoute(
-                builder: (context) => WebView(
+                builder: (context) => WebViewWidget(
                       url: item.url,
                       title: item.title,
                       hideAppBar: item.hideAppBar,
