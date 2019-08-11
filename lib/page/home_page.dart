@@ -14,7 +14,7 @@ import 'package:xiecheng_demo/widget/loading_container.dart';
 import 'package:xiecheng_demo/widget/local_nav.dart';
 import 'package:xiecheng_demo/widget/sales_box.dart';
 import 'package:xiecheng_demo/widget/search_bar.dart';
-import 'package:xiecheng_demo/widget/speak_page.dart';
+import 'package:xiecheng_demo/page/speak_page.dart';
 import 'package:xiecheng_demo/widget/sub_nav.dart';
 import 'package:xiecheng_demo/widget/web_view.dart';
 
@@ -44,7 +44,7 @@ class _HomePageState extends State<HomePage> {
     });
   }
 
-  Future<Null> _handleRefesh() async {
+  Future<void> _handleRefresh() async {
     try {
       HomeModule homeModule = await HomeDao.fetch();
       setState(() {
@@ -61,52 +61,51 @@ class _HomePageState extends State<HomePage> {
         _isLoading = false;
       });
     }
-    return null;
   }
 
   @override
   void initState() {
     super.initState();
-    _handleRefesh();
+    _handleRefresh();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xfff2f2f),
+      //backgroundColor: Color(0xfff2f2f),
       body: LoadingContainer(
           isLoading: _isLoading,
-          child: Stack(
-            children: <Widget>[
-              MediaQuery.removePadding(
-                context: context,
-                removeTop: true,
-                child: RefreshIndicator(
-                  onRefresh: _handleRefesh,
-                  child: NotificationListener(
-                    onNotification: (scrollNotification) {
-                      if (scrollNotification is ScrollUpdateNotification &&
-                          scrollNotification.depth == 0) {
-                        //列表滚动时
-                        _onScroll(scrollNotification.metrics.pixels);
-                      }
-                      return true;
-                    },
-                    child: ListView(
-                      children: <Widget>[
-                        BannerWidget(bannerList: _bannerList),
-                        LocalListWidget(localNavList: _localNavList),
-                        GridListWidget(gridNav: _gridNav),
-                        SubListWidget(subNavList: _subNavList),
-                        SalesBoxWidget(salesBoxModel: _salesBoxModel),
-                        AuthorSignWidget(),
-                      ],
+          child: RefreshIndicator(
+            onRefresh: _handleRefresh,
+            child: Stack(
+              children: <Widget>[
+                MediaQuery.removePadding(
+                  context: context,
+                  removeTop: true,
+                  child:NotificationListener(
+                      onNotification: (scrollNotification) {
+                        if (scrollNotification is ScrollUpdateNotification &&
+                            scrollNotification.depth == 0) {
+                          //列表滚动时
+                          _onScroll(scrollNotification.metrics.pixels);
+                        }
+                        return false;
+                      },
+                      child: ListView(
+                        children: <Widget>[
+                          BannerWidget(bannerList: _bannerList),
+                          LocalListWidget(localNavList: _localNavList),
+                          GridListWidget(gridNav: _gridNav),
+                          SubListWidget(subNavList: _subNavList),
+                          SalesBoxWidget(salesBoxModel: _salesBoxModel),
+                          AuthorSignWidget(),
+                        ],
+                      ),
                     ),
-                  ),
                 ),
-              ),
-              AppBarWidget(appBarAlpha: _appBarAlpha),
-            ],
+                AppBarWidget(appBarAlpha: _appBarAlpha),
+              ],
+            ),
           )),
     );
   }

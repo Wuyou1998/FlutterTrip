@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:xiecheng_demo/widget/web_view.dart';
+
+const String MY_URL = 'https://m.ctrip.com/webapp/myctrip/';
 
 class MyPage extends StatefulWidget {
   @override
@@ -8,8 +11,11 @@ class MyPage extends StatefulWidget {
 class _MyPageState extends State<MyPage> {
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Text('我的'),
+    return WebView(
+      url: MY_URL,
+      hideAppBar: true,
+      backForbid: true,
+      statusBarColor: '4c5bca',
     );
   }
 }

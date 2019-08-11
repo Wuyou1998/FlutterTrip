@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:xiecheng_demo/dao/search_dao.dart';
 import 'package:xiecheng_demo/modle/search_modle.dart';
 import 'package:xiecheng_demo/widget/search_bar.dart';
-import 'package:xiecheng_demo/widget/speak_page.dart';
+import 'package:xiecheng_demo/page/speak_page.dart';
 import 'package:xiecheng_demo/widget/web_view.dart';
 
 const TYPES = [
