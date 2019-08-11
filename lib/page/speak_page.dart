@@ -7,6 +7,9 @@ const double MIC_SIZE = 80;
 
 //语音识别页面
 class SpeakPage extends StatefulWidget {
+  final isFromMainPage;
+
+  const SpeakPage({Key key, this.isFromMainPage=false}) : super(key: key);
   @override
   _SpeakPageState createState() => _SpeakPageState();
 }
@@ -121,10 +124,10 @@ class _SpeakPageState extends State<SpeakPage>
               ),
             ),
           ),
-          Positioned(
+          widget.isFromMainPage?Container(width: 0,height: 0,):Positioned(
               right: 0,
               bottom: 20,
-              child: GestureDetector(
+              child:GestureDetector(
                 onTap: () {
                   Navigator.pop(context);
                 },
@@ -150,7 +153,10 @@ class _SpeakPageState extends State<SpeakPage>
           _speakResult = text;
         });
         print('----------语音识别成功，其内容是：$text-----------');
-        Navigator.pop(context);
+        //如果不是从主页过来的，识别完就销毁这个scaffold
+        if(!widget.isFromMainPage){
+          Navigator.pop(context);
+        }
         Navigator.push(
             context,
             MaterialPageRoute(

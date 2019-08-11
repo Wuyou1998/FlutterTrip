@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:xiecheng_demo/page/home_page.dart';
 import 'package:xiecheng_demo/page/my_page.dart';
 import 'package:xiecheng_demo/page/search_page.dart';
+import 'package:xiecheng_demo/page/speak_page.dart';
 import 'package:xiecheng_demo/page/travel_page.dart';
 
 class TabNavigator extends StatefulWidget {
@@ -31,7 +32,7 @@ class _TabNavigatorState extends State<TabNavigator> {
         physics: NeverScrollableScrollPhysics(),
         children: <Widget>[
           HomePage(),
-          SearchPage(),
+          SpeakPage(isFromMainPage: true,),
           TravelPage(),
           MyPage(),
         ],
