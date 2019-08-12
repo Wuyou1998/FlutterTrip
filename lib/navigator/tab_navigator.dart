@@ -63,7 +63,7 @@ class _TabNavigatorState extends State<TabNavigator> {
           color: defaultColor,
         ),
         activeIcon: Icon(
-          Icons.home,
+          iconData,
           color: activeColor,
         ),
         title: Text(
