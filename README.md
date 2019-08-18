@@ -4,8 +4,7 @@
 
 <img src="https://github.com/Wuyou1998/FlutterTrip/blob/master/image/avatar.png" width="200"/>  
 
-App截图： 
-
+App截图：   
 <img src="https://github.com/Wuyou1998/FlutterTrip/blob/master/image/home.jpg" width="200"/>
 <img src="https://github.com/Wuyou1998/FlutterTrip/blob/master/image/input.jpg" width="200"/>
 <img src="https://github.com/Wuyou1998/FlutterTrip/blob/master/image/mine.jpg" width="200"/>
@@ -15,8 +14,7 @@ App截图：
 <img src="https://github.com/Wuyou1998/FlutterTrip/blob/master/image/web2.jpg" width="200"/>
 <img src="https://github.com/Wuyou1998/FlutterTrip/blob/master/image/web3.jpg" width="200"/>
 
-Gif图如下：
-
+Gif图如下：  
 <img src="https://github.com/Wuyou1998/FlutterTrip/blob/master/image/homepage.gif" width="200"/>
 <img src="https://github.com/Wuyou1998/FlutterTrip/blob/master/image/homeItemClick.gif" width="200"/>
 <img src="https://github.com/Wuyou1998/FlutterTrip/blob/master/image/input.gif" width="200"/>
