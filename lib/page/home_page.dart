@@ -8,6 +8,7 @@ import 'package:xiecheng_demo/modle/home_module.dart';
 import 'package:xiecheng_demo/modle/local_nav_list_module.dart';
 import 'package:xiecheng_demo/modle/sales_box_module.dart';
 import 'package:xiecheng_demo/modle/sub_nav_list_module.dart';
+import 'package:xiecheng_demo/page/city_page.dart';
 import 'package:xiecheng_demo/page/search_page.dart';
 import 'package:xiecheng_demo/page/speak_page.dart';
 import 'package:xiecheng_demo/widget/grid_nav.dart';
@@ -111,7 +112,7 @@ class _HomePageState extends State<HomePage> {
   }
 }
 
-class AppBarWidget extends StatelessWidget {
+class AppBarWidget extends StatefulWidget {
   const AppBarWidget({
     Key key,
     @required double appBarAlpha,
@@ -119,6 +120,13 @@ class AppBarWidget extends StatelessWidget {
         super(key: key);
 
   final double _appBarAlpha;
+
+  @override
+  _AppBarWidgetState createState() => _AppBarWidgetState();
+}
+
+class _AppBarWidgetState extends State<AppBarWidget> {
+  String _currentCity = '天津市';
 
   @override
   Widget build(BuildContext context) {
@@ -135,11 +143,11 @@ class AppBarWidget extends StatelessWidget {
             padding: EdgeInsets.fromLTRB(0, 30, 0, 0),
             height: 80,
             decoration: BoxDecoration(
-              color:
-                  Color.fromARGB((_appBarAlpha * 255).toInt(), 255, 255, 255),
+              color: Color.fromARGB(
+                  (widget._appBarAlpha * 255).toInt(), 255, 255, 255),
             ),
             child: SearchBar(
-              searchBarType: _appBarAlpha > 0.2
+              searchBarType: widget._appBarAlpha > 0.2
                   ? SearchBarType.homeLight
                   : SearchBarType.home,
               inputBoxClick: () {
@@ -158,17 +166,30 @@ class AppBarWidget extends StatelessWidget {
                     MaterialPageRoute(builder: (context) => SpeakPage()));
               },
               defaultText: SEARCH_BAR_DEFAULT_TEXT,
-              leftButtonOnClick: () {},
+              city: _currentCity,
+              leftButtonOnClick: () {
+                _jumpToCity(context);
+              },
             ),
           ),
         ),
         Container(
-          height: _appBarAlpha > 0.2 ? 2 : 0,
+          height: widget._appBarAlpha > 0.2 ? 2 : 0,
           decoration: BoxDecoration(
               boxShadow: [BoxShadow(color: Colors.black12, blurRadius: 0.5)]),
         )
       ],
     );
+  }
+
+  void _jumpToCity(BuildContext context) async {
+    final String result = await Navigator.push(
+        context, MaterialPageRoute(builder: (context) => CityPage()));
+    if (result != null) {
+      setState(() {
+        _currentCity = result;
+      });
+    }
   }
 }
 

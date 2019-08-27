@@ -90,7 +90,7 @@ class _WebViewState extends State<WebViewWidget> {
     if (widget.hideAppBar ?? false) {
       return Container(
         color: backGroundColor,
-        height: 28,
+        height: MediaQuery.of(context).padding.top,
       );
     }
     return Container(
