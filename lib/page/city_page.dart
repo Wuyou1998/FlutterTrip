@@ -139,23 +139,26 @@ class _CityPageState extends State<CityPage> {
       CityInfo(name: "天津市"),
       CityInfo(name: "合肥市"),
     ]);
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16.0),
-      child: Wrap(
-        alignment: WrapAlignment.center,
-        runAlignment: WrapAlignment.center,
-        spacing: 10.0,
-        children: hotCityList.map((e) {
-          return OutlineButton(
-            borderSide: BorderSide(color: Colors.grey[300], width: .5),
-            child: Text(e.name),
-            onPressed: () {
-              print("OnItemClick: $e");
-              Navigator.pop(context, e.name);
-            },
-          );
-        }).toList(),
-      ),
+    List<OutlineButton> list = hotCityList.map((e) {
+      return OutlineButton(
+        borderSide: BorderSide(color: Colors.grey[300], width: .5),
+        child: Text(e.name),
+        onPressed: () {
+          print("OnItemClick: $e");
+          Navigator.pop(context, e.name);
+        },
+      );
+    }).toList();
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: <Widget>[
+        Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: list.sublist(0, 4)),
+        Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: list.sublist(4, 8)),
+      ],
     );
   }
 
