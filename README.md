@@ -22,3 +22,4 @@ Gif图如下：
 <img src="https://github.com/Wuyou1998/FlutterTrip/blob/master/image/search.gif" width="200"/>
 <img src="https://github.com/Wuyou1998/FlutterTrip/blob/master/image/srart.gif" width="200"/>
 <img src="https://github.com/Wuyou1998/FlutterTrip/blob/master/image/travel.gif" width="200"/>
+<img src="https://github.com/Wuyou1998/FlutterTrip/blob/master/image/cities.gif" width="200"/>
