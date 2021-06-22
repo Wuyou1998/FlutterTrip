@@ -1,4 +1,4 @@
-import 'package:xiecheng_demo/modle/local_nav_list_module.dart';
+import 'package:xiecheng_demo/model/local_nav_list_module.dart';
 
 class GridNav {
   GridNavItem hotel;

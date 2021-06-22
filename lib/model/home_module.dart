@@ -1,5 +1,5 @@
-import 'package:xiecheng_demo/modle/sales_box_module.dart';
-import 'package:xiecheng_demo/modle/sub_nav_list_module.dart';
+import 'package:xiecheng_demo/model/sales_box_module.dart';
+import 'package:xiecheng_demo/model/sub_nav_list_module.dart';
 
 import 'banner_list_module.dart';
 import 'config_module.dart';

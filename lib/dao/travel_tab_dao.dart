@@ -2,7 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
-import 'package:xiecheng_demo/modle/travel_tab_model.dart';
+import 'package:xiecheng_demo/model/travel_tab_model.dart';
 
 ///旅拍类别接口
 class TravelTabDao {

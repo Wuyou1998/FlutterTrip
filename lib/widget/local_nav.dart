@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:xiecheng_demo/modle/local_nav_list_module.dart';
+import 'package:xiecheng_demo/model/local_nav_list_module.dart';
 import 'package:xiecheng_demo/widget/web_view_widget.dart';
 
 class LocalNav extends StatelessWidget {

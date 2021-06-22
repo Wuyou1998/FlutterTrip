@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:xiecheng_demo/modle/sub_nav_list_module.dart';
+import 'package:xiecheng_demo/model/sub_nav_list_module.dart';
 import 'package:xiecheng_demo/widget/web_view_widget.dart';
 
 class SubNav extends StatelessWidget {

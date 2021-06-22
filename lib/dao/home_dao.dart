@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
-import 'package:xiecheng_demo/modle/home_module.dart';
+import 'package:xiecheng_demo/model/home_module.dart';
 
 const HOME_URL = 'http://www.devio.org/io/flutter_app/json/home_page.json';
 

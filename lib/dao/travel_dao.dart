@@ -2,7 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
-import 'package:xiecheng_demo/modle/travel_model.dart';
+import 'package:xiecheng_demo/model/travel_model.dart';
 
 ///旅拍页接口
 

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:underline_indicator/underline_indicator.dart';
 import 'package:xiecheng_demo/dao/travel_tab_dao.dart';
-import 'package:xiecheng_demo/modle/travel_tab_model.dart';
+import 'package:xiecheng_demo/model/travel_tab_model.dart';
 import 'package:xiecheng_demo/page/travel_tab_page.dart';
 
 class TravelPage extends StatefulWidget {

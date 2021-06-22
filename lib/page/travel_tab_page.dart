@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:xiecheng_demo/dao/travel_dao.dart';
-import 'package:xiecheng_demo/modle/travel_model.dart';
+import 'package:xiecheng_demo/model/travel_model.dart';
 import 'package:xiecheng_demo/widget/loading_container.dart';
 import 'package:xiecheng_demo/widget/web_view_widget.dart';
 

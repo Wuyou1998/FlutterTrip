@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
-import 'package:xiecheng_demo/modle/search_modle.dart';
+import 'package:xiecheng_demo/model/search_modle.dart';
 
 class SearchDao {
   static Future<SearchModel> fetch(String url, text) async {

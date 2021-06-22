@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:xiecheng_demo/modle/grid_nav_module.dart';
-import 'package:xiecheng_demo/modle/local_nav_list_module.dart';
+import 'package:xiecheng_demo/model/grid_nav_module.dart';
+import 'package:xiecheng_demo/model/local_nav_list_module.dart';
 import 'package:xiecheng_demo/widget/web_view_widget.dart';
 
 class GridNavView extends StatelessWidget {
